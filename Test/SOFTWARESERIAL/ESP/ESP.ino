@@ -1,5 +1,4 @@
 #include <SoftwareSerial.h>
-#include <ESP8266WiFi.h>
 
 SoftwareSerial NodeMCU(D2,D3);
 
