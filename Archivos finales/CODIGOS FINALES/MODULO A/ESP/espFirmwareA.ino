@@ -1,16 +1,25 @@
+//    L I B R E R I A S    //
+#include<ArduinoJson.h>
+#include<SoftwareSerial.h>
 #include<ESP8266WiFi.h>
 #include<PubSubClient.h>
+//    V A R    &    C O N S T   //
+#define rxPin 4    //D2
+#define txPin 2    //D4
+
+unsigned long tiempo = millis();
 
 const char* wifi = "VALCAR";
 const char* cont = "geagonzalez";
-const char* broker = "192.168.1.69";
+const char* broker = "192.168.1.690";
 const char* idCliente = "Modulo-A";
 const int puerto = 1883;
 
+SoftwareSerial nano(rxPin, txPin);
 WiFiClient nodemcu;
-PubSubClient moduloT(nodemcu);
-
-void setupWifi()
+PubSubClient moduloA(nodemcu);
+//    W I F I    C O N F I G    /
+void wifiConfig()
 {
     delay(100);
     Serial.println("");
@@ -32,58 +41,38 @@ void setupWifi()
     Serial.println("Direccion IP: ");
     Serial.println(WiFi.localIP());
 }
-
+//    R E C O N E C T A R    //
 void reconectar()
 {
-    while (!moduloT.connected())
+    while (!moduloA.connected())
     {
-        Serial.print("Intentando conexion MQTT...");
+        Serial.print("Intentando conexion MQTT");
 
-        String idCliente = "MODULO-T";
-
-        if (moduloT.connect(idCliente.c_str()))
+        if (moduloA.connect(idCliente))
         {
-            Serial.println("Conectado con exito :D");
-
-            moduloT.subscribe("test");
+            Serial.println("Conexion exitosa");
         }
         else
         {
             Serial.print("Fallo en la conexion.    ERROR: ");
-            Serial.print(moduloT.state());
+            Serial.print(moduloA.state());
             Serial.println("    Reintentando en 5s");
-
             delay(5000);
         }
     }
 }
-
+//    S E T U P    //
 void setup()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
+    nano.begin(9600);
 
-    setupWifi();
+    wifiConfig();
 
-    moduloT.setServer(broker, puerto);
+    moduloA.setServer(broker, puerto);
 }
-
+//    L O O P    //
 void loop()
 {
-    if (!moduloT.connected())
-    {
-        reconectar();
-    }
-
-    if (Serial.available())
-    {
-        String datos = String(Serial.readString());
-        char mensaje[200];
-        datos.toCharArray(mensaje, 200);
-        moduloT.publish("test", mensaje);
-    }
     
-    moduloT.loop();
-
-    delay(10);
-
 }

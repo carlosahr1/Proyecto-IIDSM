@@ -1,17 +1,19 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial NodeMCU(D2,D3);
+#define rx D2
+#define tx D3
 
-void setup(){
+SoftwareSerial NodeMCU(rx, tx);
+
+void setup()
+{
 	Serial.begin(9600);
-	NodeMCU.begin(4800);
-	pinMode(D2,INPUT);
-	pinMode(D3,OUTPUT);
+	NodeMCU.begin(9600);
 }
 
-void loop(){
-	int i = 9;
-	NodeMCU.print(i);
-	NodeMCU.println("\n");
-	delay(30);
+void loop()
+{
+  NodeMCU.println("Este es un mensaje de NODEMCU");
+  Serial.println("Enviando mensaje a Arduino Nano...");
+  delay(2000);
 }

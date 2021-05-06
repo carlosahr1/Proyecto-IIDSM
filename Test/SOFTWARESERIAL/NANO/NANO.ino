@@ -1,21 +1,22 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial ArduinoUno(3,2);
+#define rx 2
+#define tx 3
 
-void setup(){
+SoftwareSerial ArduinoNano(rx, tx);
+
+void setup()
+{
 	
 	Serial.begin(9600);
-	ArduinoUno.begin(4800);
+	ArduinoNano.begin(9600);
 
 }
 
-void loop(){
-	
-	while(ArduinoUno.available()>0){
-	float val = ArduinoUno.parseFloat();
-	if(ArduinoUno.read()== '\n'){
-	Serial.println(val);
-	}
-}
-delay(30);
+void loop()
+{
+    String datos = String(ArduinoNano.readString());
+    char mensaje[200];
+    datos.toCharArray(mensaje, 200);
+	  Serial.println(mensaje);
 }
