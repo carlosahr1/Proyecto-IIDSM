@@ -18,8 +18,7 @@ void loop()
 if(mensajeListo)
 {
     DynamicJsonDocument documento(1024);
-    DeserializationError error =deserializeJson(documento, mensaje
-    );
+    DeserializationError error = deserializeJson(documento, mensaje);
 if(error)
 {
     Serial.print("Error en la deserializacion ERROR:  ");

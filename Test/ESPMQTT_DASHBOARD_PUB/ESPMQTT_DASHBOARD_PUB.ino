@@ -79,7 +79,7 @@ void loop()
         String datos = String(Serial.readString());
         char mensaje[200];
         datos.toCharArray(mensaje, 200);
-        moduloT.publish("test", mensaje);
+        moduloT.publish("test", mensaje, true);
     }
     
     moduloT.loop();
