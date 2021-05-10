@@ -63,7 +63,7 @@ void reconectar()
         }
     }
 }
-//    S E T U P    //
+//----SETUP----//
 void setup()
 {
     Serial.begin(9600);
@@ -73,7 +73,7 @@ void setup()
 
     moduloA.setServer(broker, puerto);
 }
-//    L O O P    //
+//----LOOP----//
 void loop()
 {
     if (!moduloA.connected())
