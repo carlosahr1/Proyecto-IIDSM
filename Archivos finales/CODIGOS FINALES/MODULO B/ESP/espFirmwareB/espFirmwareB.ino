@@ -41,20 +41,34 @@ void wifiConfig()
 
 void callback(char* topic, byte* payload, unsigned int length)
 {
+    
     String mensaje;
     for (int i = 0; i < length; i++)
     {
         mensaje += (char)payload[i];
     }
 
-    char val[200];
-    mensaje.toCharArray(val, 200);
+    char val[50];
+    mensaje.toCharArray(val, 50);
 
-    DynamicJsonDocument datos(200);
+    String topico;
+    for (int i = 0; i < 10; i++)
+    {
+        topico += (char)topic[i];
+    }
 
-    Serial.println(topic);
-    Serial.println(val);
+    char tema[50];
+    topico.toCharArray(tema, 50);
+
+    DynamicJsonDocument datos(1024);
+
+    datos["tema"] = tema;
+    datos["val"] = val;
+    
+    Serial.println("");
     serializeJson(datos, Serial);
+    serializeJson(datos, nano);
+
 }
 
 void reconectar()
@@ -65,6 +79,7 @@ void reconectar()
 
         if (moduloB.connect(idCliente))
         {
+            Serial.println("");
             Serial.println("Conexion exitosa");
 
             moduloB.subscribe("moduloB/A0");
