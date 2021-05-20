@@ -13,7 +13,6 @@ const char* broker = "192.168.1.69";
 const int puerto = 1883;
 
 String mensajeJson;
-char* mensaje;
 bool mensajeListo = false;
 
 SoftwareSerial nano(rxPin, txPin);
