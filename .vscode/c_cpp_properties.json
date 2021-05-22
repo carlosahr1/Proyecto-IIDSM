@@ -31,12 +31,13 @@
                 "C:\\Users\\xXC4R\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\cores\\esp8266"
             ],
             "forcedInclude": [],
-            "cStandard": "c17",
+            "cStandard": "c11",
             "cppStandard": "c++17",
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "USBCON"
             ]
         },
         {

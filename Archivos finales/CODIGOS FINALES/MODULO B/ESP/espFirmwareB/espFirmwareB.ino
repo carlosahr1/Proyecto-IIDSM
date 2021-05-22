@@ -48,25 +48,66 @@ void callback(char* topic, byte* payload, unsigned int length)
         mensaje += (char)payload[i];
     }
 
-    char val[50];
-    mensaje.toCharArray(val, 50);
-
     String topico;
     for (int i = 0; i < 10; i++)
     {
         topico += (char)topic[i];
     }
 
-    char tema[50];
-    topico.toCharArray(tema, 50);
 
-    DynamicJsonDocument datos(1024);
+    String pinJson;
+    String modoJson;
 
-    datos["tema"] = tema;
-    datos["val"] = val;
+    if (topico == "moduloB/A0")
+    {
+        pinJson = "A0";
+        modoJson = "analogico";
+    }
+    if (topico == "moduloB/A1")
+    {
+        pinJson = "A1";
+        modoJson = "analogico";
+    }
+    if (topico == "moduloB/A2")
+    {
+        pinJson = "A2";
+        modoJson = "analogico";
+    }
+    if (topico == "moduloB/A3")
+    {
+        pinJson = "A3";
+        modoJson = "analogico";
+    }
+
+    if (topico == "moduloB/D0")
+    {
+        pinJson = "D0";
+        modoJson = "digital";
+    }
+    if (topico == "moduloB/D1")
+    {
+        pinJson = "D1";
+        modoJson = "digital";
+    }
+    if (topico == "moduloB/D2")
+    {
+        pinJson = "D2";
+        modoJson = "digital";
+    }
+    if (topico == "moduloB/D3")
+    {
+        pinJson = "D3";
+        modoJson = "digital";
+    }
     
-    Serial.println("");
+    StaticJsonDocument<1024> datos;
+
+    datos["modo"] = modoJson;
+    datos["pin"] = pinJson;
+    datos["val"] = mensaje;
+    
     serializeJson(datos, Serial);
+    Serial.println("");
     serializeJson(datos, nano);
 
 }
