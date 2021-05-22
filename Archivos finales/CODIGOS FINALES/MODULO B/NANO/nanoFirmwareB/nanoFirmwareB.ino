@@ -4,15 +4,15 @@
 #define rxPin 2
 #define txPin 4
 
-#define A0 14
-#define A1 15
-#define A2 16
-#define A3 17
+#define A0 3
+#define A1 5
+#define A2 6
+#define A3 9
 
-#define D0 3 
-#define D1 5
-#define D2 6
-#define D3 9
+#define D0 14 
+#define D1 15
+#define D2 16
+#define D3 17
 
 String mensajeJson;
 bool mensajeListo;
@@ -51,12 +51,66 @@ void loop()
             return;
         }
 
-        int val;
-        String valorJson = datos["valor"];
-        val = valorJson.toInt();
-        
+
+        String modoJson = datos["modo"];
+        String pinJson = datos["pin"];
+        String valJson = datos["val"];
+
         int pin;
-        String pinJson = datos["pin"]
+        int val = valJson.toInt();
+
+        if (pinJson == "A0")
+        {
+            pin = A0;
+        }
+
+        if (pinJson == "A1")
+        {
+            pin = A1;
+        }
+
+        if (pinJson == "A2")
+        {
+            pin = A2;
+        }
+
+        if (pinJson == "A3")
+        {
+            pin = A3;
+        }
+
+        if (pinJson == "D0")
+        {
+            pin = D0;
+        }
+
+        if (pinJson == "D1")
+        {
+            pin = D1;
+        }
+
+        if (pinJson == "D2")
+        {
+            pin = D2;
+        }
+
+        if (pinJson == "D3")
+        {
+            pin = D3;
+        }
+
+        delay(100)
+
+        if (modoJson == "analogico")
+        {
+            analogWrite(pin, val);
+        }
+
+        if (modoJson == "digital")
+        {
+            digitalWrite(pin, val);
+        }
+        
         mensajeListo = false;
     }
 }
