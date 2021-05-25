@@ -99,7 +99,7 @@ void loop()
             pin = D3;
         }
 
-        delay(100)
+        delay(100);
 
         if (modoJson == "analogico")
         {
