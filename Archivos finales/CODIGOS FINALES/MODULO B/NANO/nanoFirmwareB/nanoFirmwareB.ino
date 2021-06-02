@@ -50,8 +50,7 @@ void loop()
             mensajeListo = false;
             return;
         }
-
-
+        
         String modoJson = datos["modo"];
         String pinJson = datos["pin"];
         String valJson = datos["val"];

@@ -12,9 +12,11 @@ const char* idCliente = "Modulo-B";
 const char* broker = "192.168.1.69";
 const int puerto = 1883;
 
+SoftwareSerial nano(rxPin, txPin);
+
 WiFiClient nodemcu;
 PubSubClient moduloB(nodemcu);
-SoftwareSerial nano(rxPin, txPin);
+
 
 void wifiConfig()
 {
